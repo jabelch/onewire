@@ -7,14 +7,14 @@
 // return 0 otherwise.
 // (NOTE: Does not handle alarm presence from DS2404/DS1994)
 //
-int OWTouchReset(void)
+int OWTouchReset(int port)
 {
         int result;
 
         tickDelay(G);
-        outp(PORTADDRESS,0x00); // Drives DQ low
+        putc(0,port); //outp(PORTADDRESS,0x00); // Drives DQ low
         tickDelay(H);
-        outp(PORTADDRESS,0x01); // Releases the bus
+        putc(0,port); //outp(PORTADDRESS,0x01); // Releases the bus
         tickDelay(I);
         result = inp(PORTADDRESS) ^ 0x01; // Sample for presence pulse from slave
         tickDelay(J); // Complete the reset sequence recovery
